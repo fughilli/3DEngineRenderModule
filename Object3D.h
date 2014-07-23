@@ -1,7 +1,15 @@
 #ifndef OBJECT3D_H
 #define OBJECT3D_H
 
-#include "G3DUtilities.h"
+//#include "G3DUtilities.h"
+//#include "DisplayInterface.h"
+//#include "Camera3D.h"
+#include <cstdint>
+#include "../VectorLib/Vector.h"
+
+//class Camera3d;
+//class DisplayInterface;
+//class Triangle3d;
 
 class Object3d
 {
@@ -10,34 +18,20 @@ protected:
     Vector3d position;
     Quaternion orientation;
 public:
-    virtual void translate(Vector3d movVec);
-    virtual void rotate(Quaternion rotQuat);
+    Object3d();
+    Object3d(float scale, Vector3d pos, Quaternion rot);
+
+    virtual void translate(const Vector3d& movVec);
+    virtual void rotate(const Quaternion& rotQuat);
     virtual void scale(float sFactor);
 
-    virtual Vector3d getPos(void);
-    virtual Quaternion getRot(void);
-    virtual float getScale(void);
+    virtual Vector3d getPos(void) const;
+    virtual Quaternion getRot(void) const;
+    virtual float getScale(void) const;
 
-    virtual void setPos(Vector3d _pos);
-    virtual void setRot(Quaternion _rot);
+    virtual void setPos(const Vector3d& _pos);
+    virtual void setRot(const Quaternion& _rot);
     virtual void setScale(float _scale);
-};
-
-class DrawableObject3d : public Object3d
-{
-public:
-
-//protected:
-    virtual void draw(Camera3d& camera, DisplayInterface& _di);
-};
-
-class MeshObject3d : public DrawableObject3d
-{
-public:
-    Triangle3d * mesh;
-    uint16_t numTris;
-//protected:
-    virtual void draw(Camera3d& camera, DisplayInterface& _di);
 };
 
 #endif // OBJECT3D_H

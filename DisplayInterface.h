@@ -3,31 +3,31 @@
 
 #include "G3DUtilities.h"
 
+class Triangle2d;
+class Line2d;
+class Vector2d;
+
+struct G3D_Color
+{
+    uint8_t r, g, b;
+
+//    G3D_Color(uint8_t _r, uint8_t _g, uint8_t _b)
+//    {
+//        r=_r;g=_g;b=_b;
+//    }
+};
+
 class DisplayInterface
 {
 public:
-    virtual void drawTri(tri_2d_t& tri, uint16_t color);
+    virtual void drawBox(const Line2d& diag, const G3D_Color& color) = 0;
+    virtual void drawTri(const Triangle2d& tri, const G3D_Color& color, bool filled) = 0;
+    virtual void drawLine(const Line2d& line, const G3D_Color& color) = 0;
+    virtual void drawPoint(const Vector2d& point, const G3D_Color& color) = 0;
+    virtual void clear(const G3D_Color& color) = 0;
 };
 
-uint16_t rgbToColor(uint8_t r, uint8_t g, uint8_t b)
-{
-    uint16_t retColor;
-    retColor = (r>>3);
-    retColor <<= 5;
-    retColor = (g>>2);
-    retColor <<= 6;
-    retColor = (b>>3);
-    return retColor;
-}
-uint16_t grayscaleToColor(uint8_t grayscale)
-{
-    uint16_t retColor;
-    retColor = (grayscale>>3);
-    retColor <<= 5;
-    retColor = (grayscale>>2);
-    retColor <<= 6;
-    retColor = (grayscale>>3);
-    return retColor;
-}
+G3D_Color rgbToColor(uint8_t r, uint8_t g, uint8_t b);
+G3D_Color grayscaleToColor(uint8_t grayscale);
 
 #endif // DISPLAY_INTERFACE_H

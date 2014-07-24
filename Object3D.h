@@ -1,9 +1,6 @@
 #ifndef OBJECT3D_H
 #define OBJECT3D_H
 
-//#include "G3DUtilities.h"
-//#include "DisplayInterface.h"
-//#include "Camera3D.h"
 #include <cstdint>
 #include "../VectorLib/Vector.h"
 

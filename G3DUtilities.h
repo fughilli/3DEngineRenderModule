@@ -21,41 +21,11 @@ class Triangle3d
 public:
     Vector3d A, B, C;
 
-    Vector3d normal(void)
-    {
-        return ((B-A).cross(C-A)).unit();
-    }
+    Vector3d normal(void);
 
-    Triangle3d transform(float scale, const Quaternion& rot, const Vector3d& trans)
-    {
-        Triangle3d ret = *this;
+    Triangle3d transform(float scale, const Quaternion& rot, const Vector3d& trans);
 
-        ret.A *= scale;
-        ret.B *= scale;
-        ret.C *= scale;
-
-        ret.A = ret.A.rotate(rot);
-        ret.B = ret.B.rotate(rot);
-        ret.C = ret.C.rotate(rot);
-
-        ret.A += trans;
-        ret.B += trans;
-        ret.C += trans;
-
-        return ret;
-    }
-
-    Triangle3d center()
-    {
-        Triangle3d ret = *this;
-
-        Vector3d average = (A + B + C) / 3;
-        ret.A -= average;
-        ret.B -= average;
-        ret.C -= average;
-
-        return ret;
-    }
+    Triangle3d center();
 };
 
 Vector2d projectPoint3d(Camera3d& camera, Vector3d point);

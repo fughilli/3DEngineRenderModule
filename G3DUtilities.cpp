@@ -1,6 +1,42 @@
 #include "G3DUtilities.h"
 //#include "Camera3D.h"
 
+Vector3d Triangle3d::normal(void)
+    {
+        return ((B-A).cross(C-A)).unit();
+    }
+
+    Triangle3d Triangle3d::transform(float scale, const Quaternion& rot, const Vector3d& trans)
+    {
+        Triangle3d ret = *this;
+
+        ret.A *= scale;
+        ret.B *= scale;
+        ret.C *= scale;
+
+        ret.A = ret.A.rotate(rot);
+        ret.B = ret.B.rotate(rot);
+        ret.C = ret.C.rotate(rot);
+
+        ret.A += trans;
+        ret.B += trans;
+        ret.C += trans;
+
+        return ret;
+    }
+
+    Triangle3d Triangle3d::center()
+    {
+        Triangle3d ret = *this;
+
+        Vector3d average = (A + B + C) / 3;
+        ret.A -= average;
+        ret.B -= average;
+        ret.C -= average;
+
+        return ret;
+    }
+
 Vector3d lineAndPlaneIntersection(Vector3d L_0, Vector3d L_d, Vector3d P_0, Vector3d P_n)
 {
     float _fac = (P_0 - L_0).dot(P_n)/L_d.dot(P_n);

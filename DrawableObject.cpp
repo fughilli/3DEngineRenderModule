@@ -11,10 +11,10 @@ void MeshObject3d::draw(Camera3d& camera, DisplayInterface& _di, const Vector3d&
     for(int i = 0; i < numTris; i++)
     {
         Triangle3d modifiedMeshTri = mesh[i].transform(oscale, orientation, position);
-        if(modifiedMeshTri.normal().dot(camera.forward.rotate(camera.getRot())) < 0)
-        {
+        //if(modifiedMeshTri.normal().dot(camera.forward.rotate(camera.getRot())) < 0)
+        //{
             temp = projectTri3d(camera, modifiedMeshTri);
-            _di.drawTri(temp, grayscaleToColor((directLight.unit().dot(modifiedMeshTri.normal()) + 1)*128), true);
-        }
+            _di.drawTri(temp, grayscaleToColor((directLight.unit().dot(modifiedMeshTri.normal()) + 1)*128), false);
+        //}
     }
 }

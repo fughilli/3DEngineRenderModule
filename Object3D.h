@@ -1,7 +1,7 @@
 #ifndef OBJECT3D_H
 #define OBJECT3D_H
 
-#include <cstdint>
+#include <stdint.h>
 #include "../VectorLib/Vector.h"
 
 //class Camera3d;

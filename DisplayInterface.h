@@ -19,10 +19,12 @@ struct G3D_Color
 
 class DisplayInterface
 {
+protected:
+    virtual void triArea(const Triangle2d& tri, const G3D_Color& color);
 public:
-    virtual void drawBox(const Line2d& diag, const G3D_Color& color) = 0;
-    virtual void drawTri(const Triangle2d& tri, const G3D_Color& color, bool filled) = 0;
-    virtual void drawLine(const Line2d& line, const G3D_Color& color) = 0;
+    virtual void drawBox(const Line2d& diag, const G3D_Color& color);
+    virtual void drawTri(const Triangle2d& tri, const G3D_Color& color, bool filled);
+    virtual void drawLine(const Line2d& line, const G3D_Color& color);
     virtual void drawPoint(const Vector2d& point, const G3D_Color& color) = 0;
     virtual void clear(const G3D_Color& color) = 0;
 };

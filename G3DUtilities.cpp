@@ -1,6 +1,8 @@
 #include "G3DUtilities.h"
 //#include "Camera3D.h"
 
+#include <limits>
+
 Vector3d Triangle3d::normal(void)
     {
         return ((B-A).cross(C-A)).unit();
@@ -106,3 +108,41 @@ Vector2d projectPoint3d(Camera3d& camera, Vector3d point)
 
     return ret_vec;
 }
+
+Vector3d rayAndTriangleIntersection(Vector3d R_0, Vector3d R_d, Triangle3d tri)
+{
+    Vector3d AB = (tri.B - tri.A).unit();
+    Vector3d BC = (tri.B - tri.C).unit();
+    Vector3d CA = (tri.C - tri.A).unit();
+    
+    Vector3d norm = tri.normal();
+    
+    Vector3d point = lineAndPlaneIntersection(R_0, R_d, tri.A, tri.normal());
+
+    if ((point - R_0).dot(R_d) >= 0)
+    {
+        Vector3d AP = (point - tri.A).unit();
+        Vector3d BP = (point - tri.B).unit();
+        Vector3d CP = (point - tri.C).unit();
+        
+        int a = AP.cross(AB).dot(tri.normal());
+        int b = BP.cross(BC).dot(tri.normal());
+        int c = CP.cross(CA).dot(tri.normal());   
+
+        if ((a >= 0) == (b >= 0) == (c >= 0))
+        {
+            return point;
+        }
+        else
+        {
+            float nan = std::numeric_limits<double>::quiet_NaN();
+            return Vector3d(nan, nan, nan);
+        }
+    }
+    else
+    {
+            float nan = std::numeric_limits<double>::quiet_NaN();
+            return Vector3d(nan, nan, nan);
+    }
+}
+

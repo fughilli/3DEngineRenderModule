@@ -28,8 +28,12 @@ public:
     Triangle3d center();
 };
 
+
 Vector2d projectPoint3d(Camera3d& camera, Vector3d point);
 Triangle2d projectTri3d(Camera3d& camera, Triangle3d tri);
 Vector3d lineAndPlaneIntersection(Vector3d L_0, Vector3d L_d, Vector3d P_0, Vector3d P_n);
+
+Vector3d rayAndTriangleIntersection(Vector3d R_0, Vector3d R_d, Triangle3d);
+
 
 #endif // G3D_UTILS_H
